@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d942eb825658ea1eeb917777a247d4d53f08d9f93174d510e20f3bb993bf0969
+-- hash: d19010179dbcc8958ac1dfa3d0c05a681ee3cc9810c337e5d85038d5930a6c76
 
 name:           simplex-model
 version:        0.1.0.0
@@ -22,6 +22,7 @@ extra-source-files:
 executable simplex-model
   main-is: Main.hs
   other-modules:
+      EncryptionMock
       Paths_simplex_model
   hs-source-dirs:
       src
