@@ -14,16 +14,16 @@ module EncryptionMock
 data Key = Key
   { label :: String
   , key :: String
-  }
+  } deriving (Show)
 
 data KeyPair = KeyPair
   { public :: Key
   , private :: Key
-  }
+  } deriving (Show)
 
-data Encrypted a = Encrypted String a
+data Encrypted a = Encrypted String a deriving (Show)
 
-data Signed a = Signed String a
+data Signed a = Signed String a deriving (Show)
 
 encrypt :: Key -> a -> Encrypted a
 encrypt publicKey value = Encrypted (label publicKey) value
