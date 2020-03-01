@@ -13,7 +13,7 @@ type TimeStamp = String
 type MessageData = String
 
 data Connection = Connection
-  { id :: ConnectionId
+  { cid :: ConnectionId
   , key :: Maybe E.PublicKey
   }
 
