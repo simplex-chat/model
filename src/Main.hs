@@ -1,5 +1,7 @@
 module Main where
 
+import qualified EncryptionMock as E
+
 main :: IO ()
 main = do
   putStrLn "hello world"
@@ -23,9 +25,4 @@ data ClientRecipientConnection = ClientRecipientConnection
 
 data ClientSenderConnection = ClientSenderConnection
   { senderURI :: String
-  }
-
-data DuplexConnection = DuplexConnection
-  { receive :: ClientRecipientConnection
-  , send :: ClientSenderConnection
   }
