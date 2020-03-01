@@ -11,29 +11,36 @@ module EncryptionMock
 , verify
 ) where
 
+type KeyLabel = String
+
 data Key = Key
-  { label :: String
+  { label :: KeyLabel
   , key :: String
   } deriving (Show)
 
+type PublicKey = Key
+
+type PrivateKey = Key
+
 data KeyPair = KeyPair
-  { public :: Key
-  , private :: Key
+  { public :: PublicKey
+  , private :: PrivateKey
   } deriving (Show)
 
-data Encrypted a = Encrypted String a deriving (Show)
 
-data Signed a = Signed String a deriving (Show)
+data Encrypted a = Encrypted KeyLabel a deriving (Show)
 
-encrypt :: Key -> a -> Encrypted a
-encrypt publicKey value = Encrypted (label publicKey) value
+data Signed a = Signed KeyLabel a deriving (Show)
 
-decrypt :: Key -> Encrypted a -> a
-decrypt privateKey (Encrypted keyLabel value) =
-  if (label privateKey) == keyLabel then value else error "wrong key"
+encrypt :: PublicKey -> a -> Encrypted a
+encrypt key value = Encrypted (label key) value
 
-sign :: Key -> a -> Signed a
-sign privateKey value = Signed (label privateKey) value
+decrypt :: PrivateKey -> Encrypted a -> a
+decrypt key (Encrypted keyLabel value) =
+  if label key == keyLabel then value else error "wrong key"
 
-verify :: Key -> Signed a -> Bool
-verify publicKey (Signed keyLabel _) = (label publicKey) == keyLabel
+sign :: PrivateKey -> a -> Signed a
+sign key value = Signed (label key) value
+
+verify :: PublicKey -> Signed a -> Bool
+verify key (Signed keyLabel _) = label key == keyLabel
