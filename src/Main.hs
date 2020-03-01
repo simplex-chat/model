@@ -1,6 +1,8 @@
 module Main where
 
 import qualified EncryptionMock as E
+import qualified Server as S
+
 
 main :: IO ()
 main = do
@@ -8,15 +10,6 @@ main = do
 
 data Client = Client
   { name :: String 
-  }
-
-data Server = Server
-  { uri :: String -- create connection URI
-  }
-
-data ServerConnection = ServerConnection
-  { recipientId :: String
-  , senderId :: String 
   }
 
 data ClientRecipientConnection = ClientRecipientConnection

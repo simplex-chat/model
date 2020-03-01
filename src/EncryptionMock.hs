@@ -2,14 +2,18 @@
 
 module EncryptionMock
 ( Key
+, PublicKey
+, PrivateKey
 , KeyPair
 , Encrypted
 , Signed
 , encrypt
 , decrypt
 , sign
+, signedValue
 , verify
 ) where
+
 
 type KeyLabel = String
 
@@ -19,7 +23,6 @@ data Key = Key
   } deriving (Show)
 
 type PublicKey = Key
-
 type PrivateKey = Key
 
 data KeyPair = KeyPair
@@ -41,6 +44,9 @@ decrypt key (Encrypted keyLabel value) =
 
 sign :: PrivateKey -> a -> Signed a
 sign key value = Signed (label key) value
+
+signedValue :: Signed a -> a
+signedValue (Signed _ value) = value
 
 verify :: PublicKey -> Signed a -> Bool
 verify key (Signed keyLabel _) = label key == keyLabel
