@@ -2,32 +2,23 @@
 
 module EncryptionMock
 ( Key
-, PublicKey
-, PrivateKey
 , KeyPair
 , Encrypted
 , Signed
 , encrypt
 , decrypt
 , sign
-, signedValue
 , verify
 ) where
 
 
 type KeyLabel = String
-
-data Key = Key
-  { label :: KeyLabel
-  , key :: String
-  } deriving (Show)
-
-type PublicKey = Key
-type PrivateKey = Key
+type Key = String
 
 data KeyPair = KeyPair
-  { public :: PublicKey
-  , private :: PrivateKey
+  { label :: KeyLabel
+  , public :: Key
+  , private :: Maybe Key
   } deriving (Show)
 
 
@@ -35,18 +26,59 @@ data Encrypted a = Encrypted KeyLabel a deriving (Show)
 
 data Signed a = Signed KeyLabel a deriving (Show)
 
-encrypt :: PublicKey -> a -> Encrypted a
+
+-- | Encrypt value with key
+--
+-- >>> encrypt (KeyPair "key" "123" (Just "456")) "test"
+-- Encrypted "key" "test"
+--
+encrypt :: KeyPair -> a -> Encrypted a
 encrypt key value = Encrypted (label key) value
 
-decrypt :: PrivateKey -> Encrypted a -> a
-decrypt key (Encrypted keyLabel value) =
-  if label key == keyLabel then value else error "wrong key"
+-- | Decrypt value with key
+--
+-- >>> decrypt (KeyPair "key" "123" (Just "456")) (Encrypted "key" "test")
+-- Right "test"
+--
+-- >>> decrypt (KeyPair "key" "123" (Just "456")) (Encrypted "another" "test")
+-- Left "wrong key"
+--
+-- >>> decrypt (KeyPair "key" "123" Nothing) (Encrypted "key" "test")
+-- Left "no private key"
+--
+decrypt :: KeyPair -> Encrypted a -> Either String a
+decrypt key (Encrypted keyLabel value)
+  | private key == Nothing = Left "no private key"
+  | label key /= keyLabel  = Left "wrong key"
+  | otherwise              = Right value
 
-sign :: PrivateKey -> a -> Signed a
-sign key value = Signed (label key) value
 
-signedValue :: Signed a -> a
-signedValue (Signed _ value) = value
+-- | Sign value using key
+--
+-- >>> sign (KeyPair "key" "123" (Just "456")) "test"
+-- Right (Signed "key" "test")
+--
+-- >>> sign (KeyPair "key" "123" Nothing) "test"
+-- Left "no private key"
+--
+sign :: KeyPair -> a -> Either String (Signed a)
+sign key value
+  | private key == Nothing = Left "no private key"
+  | otherwise              = Right (Signed (label key) value)
 
-verify :: PublicKey -> Signed a -> Bool
-verify key (Signed keyLabel _) = label key == keyLabel
+-- | Verify signed value using key
+--
+-- >>> verify (KeyPair "key" "123" Nothing) (Signed "key" "test")
+-- Right "test"
+--
+-- >>> verify (KeyPair "key" "123" Nothing) (Signed "another" "test")
+-- Left "failed verification"
+--
+verify :: KeyPair -> Signed a -> Either String a
+verify key (Signed keyLabel value)
+  | label key /= keyLabel = Left "failed verification"
+  | otherwise             = Right value
+
+-- generateRandom :: RndState -> (Double, RndState)
+
+-- createSeed :: IO RndState

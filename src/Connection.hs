@@ -14,7 +14,7 @@ type MessageData = String
 
 data Connection = Connection
   { cid :: ConnectionId
-  , key :: Maybe E.PublicKey
+  , key :: Maybe E.KeyPair
   }
 
 data Message = Message

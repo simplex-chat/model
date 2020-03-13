@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d09d0aa2dc0b5cb36b262c2a645fd3c9b6f0bb90249466911fad934b1cc01868
+-- hash: 78b75452ac9d4c0d6ee569970bfe715b506ec1692080a2ab2e5162bb1ae9ae1a
 
 name:           simplex-model
 version:        0.1.0.0
@@ -22,13 +22,30 @@ extra-source-files:
 executable simplex-model
   main-is: Main.hs
   other-modules:
+      Client
       Connection
       EncryptionMock
       Server
       Paths_simplex_model
   hs-source-dirs:
       src
+  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns
   build-depends:
       base >=4.7 && <5
     , containers
+  default-language: Haskell2010
+
+test-suite doctests
+  type: exitcode-stdio-1.0
+  main-is: doctest-driver.hs
+  other-modules:
+      Paths_simplex_model
+  hs-source-dirs:
+      doctest
+  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns
+  build-depends:
+      base
+    , containers
+    , doctest
+    , doctest-driver-gen
   default-language: Haskell2010

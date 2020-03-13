@@ -11,6 +11,11 @@ category:            Web
 extra-source-files:
 - README.md
 
+ghc-options:
+  - -Wall
+  - -Wcompat
+  - -Werror=incomplete-patterns
+
 dependencies:
   - base >= 4.7 && < 5
   - containers
@@ -19,3 +24,12 @@ executables:
   simplex-model:
     source-dirs:      src
     main:             Main.hs
+
+tests:
+  doctests:
+    source-dirs: doctest
+    main: doctest-driver.hs
+    dependencies:
+      - base
+      - doctest
+      - doctest-driver-gen
