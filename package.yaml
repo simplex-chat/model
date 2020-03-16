@@ -16,9 +16,21 @@ ghc-options:
   - -Wcompat
   - -Werror=incomplete-patterns
 
+default-extensions:
+  - DataKinds
+  - DeriveAnyClass
+  - RankNTypes
+  - TemplateHaskell
+
 dependencies:
   - base >= 4.7 && < 5
   - containers
+  - lens
+  - mtl
+  - transformers
+
+library:
+  source-dirs: src
 
 executables:
   simplex-model:

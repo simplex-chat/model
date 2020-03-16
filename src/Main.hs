@@ -1,27 +1,12 @@
 module Main where
 
+import Control.Monad.State
 import qualified Data.Map as Map
-import qualified EncryptionMock as E
--- import qualified Server as S
--- import qualified Client as C
-
+import SimplexModel
 
 main :: IO ()
 main = do
-  putStrLn "hello world"
-
-data Server = undefined
-data Client = undefined
-
-type ServerUri = String
-type ClientId = String
-type ServersMap = Map.Map ServerUri Server
-type ClientsMap = Map.Map ClientId Client
-
-data ServerState = ServerState ConnectionMap MessageMap
-
-data Model = Model
-  { servers :: ServersMap
-  , clients :: ClientsMap
-  }
-
+  let model = SimplexModel Map.empty Map.empty
+  let (_, model') = (runState scenario) model
+  print model'
+  return ()

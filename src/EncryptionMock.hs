@@ -1,10 +1,10 @@
-{-# LANGUAGE DataKinds #-}
-
 module EncryptionMock
-( Key
+( PublicKey
+, PrivateKey
 , KeyPair
 , Encrypted
 , Signed
+, newKeyPair
 , encrypt
 , decrypt
 , sign
@@ -13,12 +13,13 @@ module EncryptionMock
 
 
 type KeyLabel = String
-type Key = String
+type PublicKey = String
+type PrivateKey = String
 
 data KeyPair = KeyPair
   { label :: KeyLabel
-  , public :: Key
-  , private :: Maybe Key
+  , public :: PublicKey
+  , private :: Maybe PrivateKey
   } deriving (Show)
 
 
@@ -26,6 +27,8 @@ data Encrypted a = Encrypted KeyLabel a deriving (Show)
 
 data Signed a = Signed KeyLabel a deriving (Show)
 
+newKeyPair :: KeyLabel -> KeyPair
+newKeyPair lbl = KeyPair lbl "key" (Just "key")
 
 -- | Encrypt value with key
 --

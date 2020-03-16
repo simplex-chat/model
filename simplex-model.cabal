@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 78b75452ac9d4c0d6ee569970bfe715b506ec1692080a2ab2e5162bb1ae9ae1a
+-- hash: 9f33b3a4eaccdb7693ad0178e72741e4773d1c703e820d129d79a3726d1c74a1
 
 name:           simplex-model
 version:        0.1.0.0
@@ -19,20 +19,49 @@ build-type:     Simple
 extra-source-files:
     README.md
 
+library
+  exposed-modules:
+      Client
+      Connection
+      EncryptionMock
+      Main
+      Model
+      Server
+      SimplexModel
+  other-modules:
+      Paths_simplex_model
+  hs-source-dirs:
+      src
+  default-extensions: DataKinds DeriveAnyClass RankNTypes TemplateHaskell
+  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns
+  build-depends:
+      base >=4.7 && <5
+    , containers
+    , lens
+    , mtl
+    , transformers
+  default-language: Haskell2010
+
 executable simplex-model
   main-is: Main.hs
   other-modules:
       Client
       Connection
       EncryptionMock
+      Model
       Server
+      SimplexModel
       Paths_simplex_model
   hs-source-dirs:
       src
+  default-extensions: DataKinds DeriveAnyClass RankNTypes TemplateHaskell
   ghc-options: -Wall -Wcompat -Werror=incomplete-patterns
   build-depends:
       base >=4.7 && <5
     , containers
+    , lens
+    , mtl
+    , transformers
   default-language: Haskell2010
 
 test-suite doctests
@@ -42,10 +71,14 @@ test-suite doctests
       Paths_simplex_model
   hs-source-dirs:
       doctest
+  default-extensions: DataKinds DeriveAnyClass RankNTypes TemplateHaskell
   ghc-options: -Wall -Wcompat -Werror=incomplete-patterns
   build-depends:
       base
     , containers
     , doctest
     , doctest-driver-gen
+    , lens
+    , mtl
+    , transformers
   default-language: Haskell2010

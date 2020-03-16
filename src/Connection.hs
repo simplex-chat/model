@@ -1,8 +1,13 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 module Connection
 ( Connection(..)
+, ServerConnection
 , ConnectionId
 , Message
 ) where
+
+import Control.Lens
 
 import qualified EncryptionMock as E
 
@@ -13,9 +18,17 @@ type TimeStamp = String
 type MessageData = String
 
 data Connection = Connection
-  { cid :: ConnectionId
-  , key :: Maybe E.KeyPair
-  }
+  { _cid :: ConnectionId
+  , _key :: Maybe E.KeyPair
+  } deriving (Show)
+makeLenses ''Connection
+
+data ServerConnection = ServerConnection
+  { _recipient :: Connection
+  , _sender :: Connection
+  } deriving (Show)
+makeLenses ''ServerConnection
+
 
 data Message = Message
   { connectionId :: ConnectionId
