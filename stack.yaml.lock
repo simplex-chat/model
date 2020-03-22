@@ -3,7 +3,23 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    size: 57267
+    subdir: definitions
+    url: https://github.com/simplex-chat/protocol/archive/ddfda96523dc1d017d128d1f7bbc01cb2f021632.tar.gz
+    cabal-file:
+      size: 1785
+      sha256: ff73625ab716f6692d036c3c67f202bc4712d3a3c110f268edda7252546fe02a
+    name: simplex-definitions
+    version: 0.1.0.0
+    sha256: 82e0e8be25aa6c726fd4a94c0bb3e046b270515d5fe31f53e6f08724c34380af
+    pantry-tree:
+      size: 567
+      sha256: 0d598d1243d1199df4717a709d1908b111f846d2c3afc0f954226ae1b8f09523
+  original:
+    subdir: definitions
+    url: https://github.com/simplex-chat/protocol/archive/ddfda96523dc1d017d128d1f7bbc01cb2f021632.tar.gz
 snapshots:
 - completed:
     size: 489011

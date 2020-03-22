@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9f33b3a4eaccdb7693ad0178e72741e4773d1c703e820d129d79a3726d1c74a1
+-- hash: 45e7dc2d8fd614a827df2b84d2f0d6f3f91fbd561cf8b09eae37b06327826169
 
 name:           simplex-model
 version:        0.1.0.0
@@ -21,46 +21,56 @@ extra-source-files:
 
 library
   exposed-modules:
-      Client
+      ClientOld
       Connection
       EncryptionMock
       Main
       Model
+      ModelOld
+      Scenarios
       Server
-      SimplexModel
+      ServerOld
+      SimplexModelOld
+      Store
+      Types
   other-modules:
       Paths_simplex_model
   hs-source-dirs:
       src
-  default-extensions: DataKinds DeriveAnyClass RankNTypes TemplateHaskell
-  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns
+  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns
   build-depends:
       base >=4.7 && <5
     , containers
     , lens
     , mtl
+    , simplex-definitions
     , transformers
   default-language: Haskell2010
 
 executable simplex-model
   main-is: Main.hs
   other-modules:
-      Client
+      ClientOld
       Connection
       EncryptionMock
       Model
+      ModelOld
+      Scenarios
       Server
-      SimplexModel
+      ServerOld
+      SimplexModelOld
+      Store
+      Types
       Paths_simplex_model
   hs-source-dirs:
       src
-  default-extensions: DataKinds DeriveAnyClass RankNTypes TemplateHaskell
-  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns
+  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns
   build-depends:
       base >=4.7 && <5
     , containers
     , lens
     , mtl
+    , simplex-definitions
     , transformers
   default-language: Haskell2010
 
@@ -71,8 +81,7 @@ test-suite doctests
       Paths_simplex_model
   hs-source-dirs:
       doctest
-  default-extensions: DataKinds DeriveAnyClass RankNTypes TemplateHaskell
-  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns
+  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns
   build-depends:
       base
     , containers
@@ -80,5 +89,6 @@ test-suite doctests
     , doctest-driver-gen
     , lens
     , mtl
+    , simplex-definitions
     , transformers
   default-language: Haskell2010

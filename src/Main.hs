@@ -2,7 +2,7 @@ module Main where
 
 import Control.Monad.State
 import qualified Data.Map as Map
-import SimplexModel
+import SimplexModelOld
 
 main :: IO ()
 main = do

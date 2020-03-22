@@ -1,4 +1,7 @@
-module Client
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE TemplateHaskell #-}
+
+module ClientOld
 ( Client(..)
 , ClientName
 , makeClient
@@ -9,12 +12,11 @@ module Client
 
 import Control.Lens
 import Control.Monad.State
-import Data.Function
 import Data.Map as Map
 
 import Connection
-import qualified Model as M
-import qualified Server as S
+import qualified ModelOld as M
+import qualified ServerOld as S
 
 type ClientName = String
 
@@ -40,11 +42,11 @@ addServer uri = M.addItem servers uri ()
 --   M.addItem pendingRecipientConnections lbl conn
 --   return connId
 
-data ClientRecipientConnection = ClientRecipientConnection
-  { recipientURI :: String
-  , senderURI :: Maybe String
-  -- , recipientKey :: E.KeyPair
-  }
+-- data ClientRecipientConnection = ClientRecipientConnection
+--   { recipientURI :: String
+--   , senderURI :: Maybe String
+--   -- , recipientKey :: E.KeyPair
+--   }
 
 -- data ClientSenderConnection = ClientSenderConnection
 --   { senderURI :: String

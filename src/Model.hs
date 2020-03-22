@@ -1,65 +1,41 @@
-module Model
-( Model
-, addItem
-, getItem
-, MutableModel
-, updateItem
-, itemAction
-) where
+module Model where
 
-import Control.Lens
-import Control.Monad.State
-import Data.Function
-import qualified Data.Map as M
+import Types
 
 
-class Model s where
-  addItem :: Ord k => Lens' s (M.Map k v) -> k -> v -> State s ()
-  addItem lens key v = do
-    modelState <- get
-    let vs = view lens modelState
-    if M.member key vs
-      then error "item already exists"
-      else put $ set lens (M.insert key v vs) modelState
+class Monad m => Model m where
+  -- register server with the model
+  server :: ServerUri -> m ()
 
-  hasItem :: Ord k => Lens' s (M.Map k v) -> k -> State s Bool
-  hasItem lens key = do
-    modelState <- get
-    let vs = view lens modelState
-    return $ M.member key vs
+  -- register client with the model
+  client :: ClientName -> m ()
 
-  getItem :: Ord k => Lens' s (M.Map k v) -> k -> State s (Maybe v)
-  getItem lens key = do
-    modelState <- get
-    let vs = view lens modelState
-    return $ M.lookup key vs
+  -- perform client action
+  act    :: Client c => ClientName -> c a -> m a
 
 
-class Model s => MutableModel s where
-  deleteItem :: Ord k => Lens' s (M.Map k v) -> k -> State s ()
-  deleteItem lens key = do
-    modelState <- get
-    let vs = view lens modelState
-    put $ set lens (M.delete key vs) modelState
+class Monad m => Client m where
+  -- recipient: register server with the client
+  addServer         :: ServerUri -> m ()
 
-  updateItem :: Ord k => Lens' s (M.Map k v) -> k -> v -> State s ()
-  updateItem lens key v = do
-    modelState <- get
-    let vs = view lens modelState
-    if M.member key vs
-      then put $ set lens (M.insert key v vs) modelState
-      else error "item does not exist"
+  -- recipient: request connection and stores it in the client storage as pending
+  requestConnection :: ServerUri -> m ConnectionId
 
-  itemAction :: Ord k => Lens' s (M.Map k v) -> k -> State v a -> State s a
-  itemAction lens key action = do
-    -- Just v <- getItem lens key
-    -- let (result, v') = (runState action) v
-    -- updateItem lens key v'
-    -- return result
-    maybeItem <- getItem lens key
-    case maybeItem of
-      Just v -> do
-        let (result, v') = (runState action) v
-        updateItem lens key v'
-        return result
-      Nothing -> error "item does not exist"
+  -- recipient: secure connection for the sender to use
+  secureConnection  :: ServerUri -> ConnectionId -> SenderKey -> m ()
+
+  -- recipient: prepare out-of-band message
+  -- (no calls to the server, ServerUri and ConnectionId identify connection in the client)
+  prepareOutOfBand  :: ServerUri -> ConnectionId -> m OutOfBandMessage
+
+  -- sender: receive out-of-band message from the recipient
+  receiveOutOfBand  :: OutOfBandMessage -> m (ServerUri, SenderConnectionId)
+
+  -- sender: confirm connection to recipient's server
+  confirmConnection :: ServerUri -> SenderConnectionId -> m ()
+
+  -- recipient: receive and deletes all messages from the connection
+  getMessages       :: ServerUri -> ConnectionId -> m [TextMessage]
+
+  -- sender: send the message to the server
+  sendMessage       :: ServerUri -> SenderConnectionId -> TextMessage -> m ()

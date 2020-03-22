@@ -15,12 +15,22 @@ ghc-options:
   - -Wall
   - -Wcompat
   - -Werror=incomplete-patterns
+  - -Wredundant-constraints
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
 
-default-extensions:
-  - DataKinds
-  - DeriveAnyClass
-  - RankNTypes
-  - TemplateHaskell
+# default-extensions:
+  # - DataKinds
+  # - DeriveAnyClass
+  # - FlexibleInstances
+  # - FunctionalDependencies
+  # - InstanceSigs
+  # - MultiParamTypeClasses
+  # - NoMonomorphismRestriction
+  # - OverloadedStrings
+  # - RankNTypes
+  # - TemplateHaskell
+  # - TypeSynonymInstances
 
 dependencies:
   - base >= 4.7 && < 5
@@ -28,6 +38,7 @@ dependencies:
   - lens
   - mtl
   - transformers
+  - simplex-definitions
 
 library:
   source-dirs: src
