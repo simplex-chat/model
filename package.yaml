@@ -47,6 +47,9 @@ executables:
   simplex-model:
     source-dirs:      src
     main:             Main.hs
+  # print-simplex-scenarios:
+  #   source-dirs:      src
+  #   main:             PrintScenarios.hs
 
 tests:
   doctests:

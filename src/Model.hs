@@ -3,7 +3,7 @@ module Model where
 import Types
 
 
-class Monad m => Model m where
+class (Monad m, Client m) => Model m where
   -- register server with the model
   server :: ServerUri -> m ()
 
@@ -11,7 +11,7 @@ class Monad m => Model m where
   client :: ClientName -> m ()
 
   -- perform client action
-  act    :: Client c => ClientName -> c a -> m a
+  act    :: ClientName -> m a -> m a
 
 
 class Monad m => Client m where
@@ -33,6 +33,9 @@ class Monad m => Client m where
 
   -- sender: confirm connection to recipient's server
   confirmConnection :: ServerUri -> SenderConnectionId -> m ()
+
+  -- recipient: receive initial message with the sender key
+  getSenderKey      :: ServerUri -> ConnectionId -> m SenderKey
 
   -- recipient: receive and deletes all messages from the connection
   getMessages       :: ServerUri -> ConnectionId -> m [TextMessage]

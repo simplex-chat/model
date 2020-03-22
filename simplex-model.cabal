@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 45e7dc2d8fd614a827df2b84d2f0d6f3f91fbd561cf8b09eae37b06327826169
+-- hash: 9cb8d21d610ff72bb18eb0b2ef21b382cab3eb17fb7687c99ea4ad2cd01b1078
 
 name:           simplex-model
 version:        0.1.0.0
@@ -27,6 +27,7 @@ library
       Main
       Model
       ModelOld
+      PrintScenarios
       Scenarios
       Server
       ServerOld
@@ -55,6 +56,7 @@ executable simplex-model
       EncryptionMock
       Model
       ModelOld
+      PrintScenarios
       Scenarios
       Server
       ServerOld
