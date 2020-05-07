@@ -19,37 +19,49 @@ ghc-options:
   - -Wincomplete-record-updates
   - -Wincomplete-uni-patterns
 
-# default-extensions:
-  # - DataKinds
-  # - DeriveAnyClass
+default-extensions:
+  - BlockArguments
+  - DeriveAnyClass
+  - DuplicateRecordFields
+  - MultiParamTypeClasses
+  - NamedFieldPuns
+  - NoImplicitPrelude
+  - OverloadedStrings
+  - RankNTypes
+  - RecordWildCards
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - TypeApplications
   # - FlexibleInstances
   # - FunctionalDependencies
-  # - InstanceSigs
-  # - MultiParamTypeClasses
   # - NoMonomorphismRestriction
-  # - OverloadedStrings
-  # - RankNTypes
   # - TemplateHaskell
-  # - TypeSynonymInstances
 
 dependencies:
   - base >= 4.7 && < 5
+  - classy-prelude
   - containers
+  - generic-lens
   - lens
   - mtl
+  - text
   - transformers
   - simplex-definitions
+  - stm
+  - unliftio
 
 library:
   source-dirs: src
 
 executables:
-  simplex-model:
-    source-dirs:      src
-    main:             Main.hs
-  # print-simplex-scenarios:
+  # simplex-model:
   #   source-dirs:      src
-  #   main:             PrintScenarios.hs
+  #   main:             Main.hs
+  print-scenarios:
+    source-dirs:      app/print
+    main:             PrintScenarios.hs
+    dependencies:
+      - simplex-model
 
 tests:
   doctests:

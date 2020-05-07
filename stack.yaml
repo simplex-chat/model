@@ -17,7 +17,7 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-15.1
+resolver: lts-15.7
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -41,7 +41,7 @@ packages:
 #
 extra-deps:
 - github: simplex-chat/protocol
-  commit: ddfda96523dc1d017d128d1f7bbc01cb2f021632
+  commit: 5643c6e27076b7444d5f4766be7efb43a7859e12
   subdirs:
   - definitions
 

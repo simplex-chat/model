@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9cb8d21d610ff72bb18eb0b2ef21b382cab3eb17fb7687c99ea4ad2cd01b1078
+-- hash: a0ddf1e19b34ace7e2f94fb297da9e8ac14e47e5fd110d5b727d9ab62cedfa10
 
 name:           simplex-model
 version:        0.1.0.0
@@ -21,59 +21,53 @@ extra-source-files:
 
 library
   exposed-modules:
-      ClientOld
-      Connection
-      EncryptionMock
-      Main
       Model
-      ModelOld
-      PrintScenarios
       Scenarios
-      Server
-      ServerOld
-      SimplexModelOld
-      Store
-      Types
+      Simplex.Messaging.Client
+      Simplex.Messaging.Model.Server
+      Simplex.Messaging.Server
+      Simplex.Messaging.Shared
   other-modules:
       Paths_simplex_model
   hs-source-dirs:
       src
+  default-extensions: BlockArguments DeriveAnyClass DuplicateRecordFields MultiParamTypeClasses NamedFieldPuns NoImplicitPrelude OverloadedStrings RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TypeApplications
   ghc-options: -Wall -Wcompat -Werror=incomplete-patterns -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns
   build-depends:
       base >=4.7 && <5
+    , classy-prelude
     , containers
+    , generic-lens
     , lens
     , mtl
     , simplex-definitions
+    , stm
+    , text
     , transformers
+    , unliftio
   default-language: Haskell2010
 
-executable simplex-model
-  main-is: Main.hs
+executable print-scenarios
+  main-is: PrintScenarios.hs
   other-modules:
-      ClientOld
-      Connection
-      EncryptionMock
-      Model
-      ModelOld
-      PrintScenarios
-      Scenarios
-      Server
-      ServerOld
-      SimplexModelOld
-      Store
-      Types
       Paths_simplex_model
   hs-source-dirs:
-      src
+      app/print
+  default-extensions: BlockArguments DeriveAnyClass DuplicateRecordFields MultiParamTypeClasses NamedFieldPuns NoImplicitPrelude OverloadedStrings RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TypeApplications
   ghc-options: -Wall -Wcompat -Werror=incomplete-patterns -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns
   build-depends:
       base >=4.7 && <5
+    , classy-prelude
     , containers
+    , generic-lens
     , lens
     , mtl
     , simplex-definitions
+    , simplex-model
+    , stm
+    , text
     , transformers
+    , unliftio
   default-language: Haskell2010
 
 test-suite doctests
@@ -83,14 +77,20 @@ test-suite doctests
       Paths_simplex_model
   hs-source-dirs:
       doctest
+  default-extensions: BlockArguments DeriveAnyClass DuplicateRecordFields MultiParamTypeClasses NamedFieldPuns NoImplicitPrelude OverloadedStrings RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TypeApplications
   ghc-options: -Wall -Wcompat -Werror=incomplete-patterns -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns
   build-depends:
       base
+    , classy-prelude
     , containers
     , doctest
     , doctest-driver-gen
+    , generic-lens
     , lens
     , mtl
     , simplex-definitions
+    , stm
+    , text
     , transformers
+    , unliftio
   default-language: Haskell2010

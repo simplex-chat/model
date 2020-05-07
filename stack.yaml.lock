@@ -5,24 +5,24 @@
 
 packages:
 - completed:
-    size: 57267
+    size: 57313
     subdir: definitions
-    url: https://github.com/simplex-chat/protocol/archive/ddfda96523dc1d017d128d1f7bbc01cb2f021632.tar.gz
+    url: https://github.com/simplex-chat/protocol/archive/5643c6e27076b7444d5f4766be7efb43a7859e12.tar.gz
     cabal-file:
-      size: 1785
-      sha256: ff73625ab716f6692d036c3c67f202bc4712d3a3c110f268edda7252546fe02a
+      size: 1815
+      sha256: b582382b38715fabe1b63c4b8eb75ceb02ce583d818f589c87f3ce429959a73e
     name: simplex-definitions
     version: 0.1.0.0
-    sha256: 82e0e8be25aa6c726fd4a94c0bb3e046b270515d5fe31f53e6f08724c34380af
+    sha256: 2546abd9c770eab0d992b8a7c013c7d5e62eb2dbc2144466672f1f5bad46b7fe
     pantry-tree:
       size: 567
-      sha256: 0d598d1243d1199df4717a709d1908b111f846d2c3afc0f954226ae1b8f09523
+      sha256: 2c39a9d96c4ea0fb6dfd2408bdf6d6028cc27dd9806ff36fecc8de1b9b503c9d
   original:
     subdir: definitions
-    url: https://github.com/simplex-chat/protocol/archive/ddfda96523dc1d017d128d1f7bbc01cb2f021632.tar.gz
+    url: https://github.com/simplex-chat/protocol/archive/5643c6e27076b7444d5f4766be7efb43a7859e12.tar.gz
 snapshots:
 - completed:
-    size: 489011
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/15/1.yaml
-    sha256: d4ecc42b7125d68e4c3c036a08046ad0cd02ae0d9efbe3af2223a00ff8cc16f3
-  original: lts-15.1
+    size: 491389
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/15/7.yaml
+    sha256: 92ab6303fe20ec928461c82ce0980b4d17c06f4e66205a2967e476474f686c17
+  original: lts-15.7

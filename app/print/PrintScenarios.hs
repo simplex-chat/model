@@ -1,16 +1,18 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE InstanceSigs #-}
 
-module PrintScenarios where
+module Main where
 
 import Model
-import Types
-import Control.Monad.Writer
+import Simplex.Messaging.Shared
 import Scenarios
 
-type Printer = Writer [String]
+import ClassyPrelude
+import Control.Monad.Writer
 
-instance Model Printer where
+type Printer = Writer [Text]
+
+instance Model Printer Printer where
   server :: ServerUri -> Printer ()
   server srv = tell ["Server: " ++ srv]
 
@@ -67,9 +69,15 @@ instance Client Printer where
   getMessages srv cid = do
     tell ["  - receive messages from connection " ++ srv ++ "/" ++ cid]
     let msg = "hello"
-    tell ["    message " ++ (show msg) ++ " received"]
+    tell ["    message " ++ tshow msg ++ " received"]
     return [msg]
 
   sendMessage       :: ServerUri -> SenderConnectionId -> TextMessage -> Printer ()
-  sendMessage srv' cid' msg = do
-    tell ["  - send message " ++ (show msg) ++ " to connection " ++ srv' ++ "/" ++ cid']
+  sendMessage srv' cid' msg =
+    tell ["  - send message " ++ tshow msg ++ " to connection " ++ srv' ++ "/" ++ cid']
+
+
+main :: IO ()
+main = do
+  let scenarioLog = execWriter (establishConnection @Printer :: Printer ())
+  putStrLn $ unlines scenarioLog
