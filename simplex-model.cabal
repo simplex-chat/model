@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d942eb825658ea1eeb917777a247d4d53f08d9f93174d510e20f3bb993bf0969
+-- hash: a0ddf1e19b34ace7e2f94fb297da9e8ac14e47e5fd110d5b727d9ab62cedfa10
 
 name:           simplex-model
 version:        0.1.0.0
@@ -19,12 +19,78 @@ build-type:     Simple
 extra-source-files:
     README.md
 
-executable simplex-model
-  main-is: Main.hs
+library
+  exposed-modules:
+      Model
+      Scenarios
+      Simplex.Messaging.Client
+      Simplex.Messaging.Model.Server
+      Simplex.Messaging.Server
+      Simplex.Messaging.Shared
   other-modules:
       Paths_simplex_model
   hs-source-dirs:
       src
+  default-extensions: BlockArguments DeriveAnyClass DuplicateRecordFields MultiParamTypeClasses NamedFieldPuns NoImplicitPrelude OverloadedStrings RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TypeApplications
+  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns
   build-depends:
       base >=4.7 && <5
+    , classy-prelude
+    , containers
+    , generic-lens
+    , lens
+    , mtl
+    , simplex-definitions
+    , stm
+    , text
+    , transformers
+    , unliftio
+  default-language: Haskell2010
+
+executable print-scenarios
+  main-is: PrintScenarios.hs
+  other-modules:
+      Paths_simplex_model
+  hs-source-dirs:
+      app/print
+  default-extensions: BlockArguments DeriveAnyClass DuplicateRecordFields MultiParamTypeClasses NamedFieldPuns NoImplicitPrelude OverloadedStrings RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TypeApplications
+  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns
+  build-depends:
+      base >=4.7 && <5
+    , classy-prelude
+    , containers
+    , generic-lens
+    , lens
+    , mtl
+    , simplex-definitions
+    , simplex-model
+    , stm
+    , text
+    , transformers
+    , unliftio
+  default-language: Haskell2010
+
+test-suite doctests
+  type: exitcode-stdio-1.0
+  main-is: doctest-driver.hs
+  other-modules:
+      Paths_simplex_model
+  hs-source-dirs:
+      doctest
+  default-extensions: BlockArguments DeriveAnyClass DuplicateRecordFields MultiParamTypeClasses NamedFieldPuns NoImplicitPrelude OverloadedStrings RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TypeApplications
+  ghc-options: -Wall -Wcompat -Werror=incomplete-patterns -Wredundant-constraints -Wincomplete-record-updates -Wincomplete-uni-patterns
+  build-depends:
+      base
+    , classy-prelude
+    , containers
+    , doctest
+    , doctest-driver-gen
+    , generic-lens
+    , lens
+    , mtl
+    , simplex-definitions
+    , stm
+    , text
+    , transformers
+    , unliftio
   default-language: Haskell2010

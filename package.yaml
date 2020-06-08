@@ -11,10 +11,63 @@ category:            Web
 extra-source-files:
 - README.md
 
+ghc-options:
+  - -Wall
+  - -Wcompat
+  - -Werror=incomplete-patterns
+  - -Wredundant-constraints
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
+
+default-extensions:
+  - BlockArguments
+  - DeriveAnyClass
+  - DuplicateRecordFields
+  - MultiParamTypeClasses
+  - NamedFieldPuns
+  - NoImplicitPrelude
+  - OverloadedStrings
+  - RankNTypes
+  - RecordWildCards
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - TypeApplications
+  # - FlexibleInstances
+  # - FunctionalDependencies
+  # - NoMonomorphismRestriction
+  # - TemplateHaskell
+
 dependencies:
   - base >= 4.7 && < 5
+  - classy-prelude
+  - containers
+  - generic-lens
+  - lens
+  - mtl
+  - text
+  - transformers
+  - simplex-definitions
+  - stm
+  - unliftio
+
+library:
+  source-dirs: src
 
 executables:
-  simplex-model:
-    source-dirs:      src
-    main:             Main.hs
+  # simplex-model:
+  #   source-dirs:      src
+  #   main:             Main.hs
+  print-scenarios:
+    source-dirs:      app/print
+    main:             PrintScenarios.hs
+    dependencies:
+      - simplex-model
+
+tests:
+  doctests:
+    source-dirs: doctest
+    main: doctest-driver.hs
+    dependencies:
+      - base
+      - doctest
+      - doctest-driver-gen
